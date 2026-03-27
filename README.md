@@ -28,63 +28,47 @@ Program to implement Principal Component Analysis (PCA) for dimensionality reduc
 Developed by: PUGAZH V
 RegisterNumber:  212225240109
 */
-# Import necessary libraries
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# Step 1: Load the dataset from a local file
-# Ensure the correct file path is provided where the dataset is saved
+data = pd.read_csv('HeightsWeights.csv')
 
-data = pd.read_csv("HeightsWeights.csv")
-
-# Step 2: Explore the data
-# Display the first few rows and column names for initial inspection
+print("First 5 rows of the dataset:")
 print(data.head())
-print(data.columns)
 
-# Step 3: Preprocess the data (Feature Scaling)
-# Select the relevant columns for analysis
-X = data[['Height(Inches)', 'Weight(Pounds)']]  # Use the appropriate column names
+X = data[['Height(Inches)', 'Weight(Pounds)']]
 
-# Standardize the features to bring them to the same scale
+plt.figure(figsize=(6,5))
+sns.scatterplot(x='Height(Inches)', y='Weight(Pounds)', data=data)
+plt.title('Original Data Distribution')
+plt.show()
+
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
 
-# Step 4: Apply PCA for dimensionality reduction
-# Initialize PCA to reduce the features to 2 components (for simplicity)
 pca = PCA(n_components=2)
 X_pca = pca.fit_transform(X_scaled)
 
-# Step 5: Analyze the explained variance
-# Print the explained variance ratio for each principal component
-explained_variance = pca.explained_variance_ratio_
-print("\nName: PUGAZH V")
-print("Reg No: 212225240109\n")
-print("Explained Variance Ratio for each Principal Component:", explained_variance)
-print("Total Explained Variance:", sum(explained_variance))
+print("Explained Variance Ratio:", pca.explained_variance_ratio_)
 
-# Step 6: Visualize the principal components
-# Create a DataFrame to store the principal components
 pca_df = pd.DataFrame(X_pca, columns=['PC1', 'PC2'])
 
-# Plot the first two principal components
-plt.figure(figsize=(8, 6))
-sns.scatterplot(x='PC1', y='PC2', data=pca_df, alpha=0.7)
+plt.figure(figsize=(6,5))
+sns.scatterplot(x='PC1', y='PC2', data=pca_df)
+plt.title("PCA Projection of Height and Weight")
 plt.xlabel("Principal Component 1")
 plt.ylabel("Principal Component 2")
-plt.title("PCA - Heights and Weights Dataset")
 plt.show()
 ```
 
 ## Output:
 
-<img width="763" height="238" alt="Screenshot 2026-03-17 193751" src="https://github.com/user-attachments/assets/942a548b-3ec7-49df-9a5a-898837b11dec" />
+<img width="758" height="620" alt="Screenshot 2026-03-27 140936" src="https://github.com/user-attachments/assets/07b61dc4-9e29-4f72-b148-1aece4ecf694" />
 
-<img width="831" height="571" alt="Screenshot 2026-03-17 193803" src="https://github.com/user-attachments/assets/a8945591-ebac-4b84-9203-22c50d7631d3" />
-
+<img width="589" height="522" alt="Screenshot 2026-03-27 140949" src="https://github.com/user-attachments/assets/e8f33421-c927-46c5-91dc-70d143d12f9a" />
 
 
 ## Result:
